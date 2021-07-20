@@ -6,6 +6,7 @@ const imgz=document.getElementById("champimg")
 let champidX;
 let arrayX =[]
 let arrayrand=[]
+let kap=0;
 async function load(){
     const response = await fetch("http://ddragon.leagueoflegends.com/cdn/11.14.1/data/en_US/champion.json")
     const data = await response.json();
