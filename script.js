@@ -1,11 +1,14 @@
 import $ from "jquery"
 
-
 const btn = document.getElementById("Btn1")
 const nme =document.getElementById("name")
 const tit =document.getElementById("title")
 const stat =document.getElementById("stats")
 const imgz=document.getElementById("champimg")
+let score=0;
+let highscore=localStorage.getItem("Highscore") || 0;
+let noclick=true;
+
 let champidX;
 let arrayX =[]
 let arrayrand=[]
@@ -42,11 +45,15 @@ k.push(x,y,z,f)
 }
 
 document.addEventListener("DOMContentLoaded",async()=>{
-    $('ul').hide()
+
+    $('ul#stats').hide()
+    $('#Score').html(score)
+    $('#Hs').html(highscore)
     let data = await load();
     let array1 = Object.values((data))
     btn.addEventListener("click", async ()=>{   
-       
+        $('#Score').html(score)
+        $('#Hs').html(highscore)
         let arrayT=[];
         let data1 = await load();   
         let array1= Object.values(data1);
@@ -70,7 +77,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
         }
 
         imgz.src=(`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/champion/${Object.values(arrayX[3])[0].id}.png`);
-        $('ul').show()
+        $('ul#stats').show()
     
 })
 })
@@ -79,55 +86,90 @@ function end(){
     $('.answer').css({color:'black'})
     kap=0;
     btn.click()
+    noclick=true;
+
+}
+function Correct(i){
+    noclick=false;
+    console.log("answer numb"+i)
+    $('.answer').css({'background-color':'red'})
+    $(`#answer${i}`).css({'background-color':'green'})
+    score++;
+    if(score>highscore){
+        highscore=score;
+        localStorage.setItem("Highscore",highscore)
+    }
+    kap=1;
+    bdllon=5;
 }
 function compare(x,y){
     let testtrue=0;
     for(var i=0;i<4;i++){
-    if(x===y && y === Object.values(arrayX[3])[0].spells[i].name){
+    if(x===y && y === Object.values(arrayX[3])[0].spells[i].name && noclick){
         testtrue=1;
     }
 }
 if(testtrue===1) return true
 return false
 }
-document.body.addEventListener("click",(e)=>{
 
-if(e.target!=stat.children.item(0) && e.target !=stat.children.item(1) && e.target!=stat.children.item(2) && e.target!=stat.children.item(3)) return null
-
-for(var i=0;i<4;i++){
-    Object.values(arrayX[3])[0].spells[i].name=Object.values(arrayX[3])[0].spells[i].name.split('/')[0]
-}
-
-console.log(e.target.innerHTML)
-console.log(kap)
-for(i=0;i<4;i++){
-if(compare(e.target.innerHTML,stat.children.item(i).innerHTML)){
-    $('.answer').css({'background-color':'red'})
-    $(`#answer${i}`).css({'background-color':'green'})
-    kap=1;
-    bdllon=5;
-}
-}
-
-if(kap!=1){
+function Wrong(){
     for(var i=0;i<4;i++){
         for(var j=0;j<4;j++){
-            console.log(stat.children.item(i).innerHTML===Object.values(arrayX[3])[0].spells[j].name)
     if(stat.children.item(i).innerHTML===Object.values(arrayX[3])[0].spells[j].name){
         $(`#answer${i}`).css({'background-color':'green'})
         bdllon=i;
-        console.log(bdllon)
+
     }else{
         $(`#answer${i}`).css({'background-color':'red'})
     }
 }
 }
-if(bdllon!=5){
-    $(`#answer${bdllon}`).css({'background-color':'green'})
+return bdllon;
+}
+
+document.body.addEventListener("click",(e)=>{
+if((e.target!=stat.children.item(0) && e.target !=stat.children.item(1) && e.target!=stat.children.item(2) && e.target!=stat.children.item(3)  ) || !noclick) return null
+
+for(var i=0;i<4;i++){
+    Object.values(arrayX[3])[0].spells[i].name=Object.values(arrayX[3])[0].spells[i].name.split('/')[0]
+}
+
+for(i=0;i<4;i++){
+if(compare(e.target.innerHTML,stat.children.item(i).innerHTML)){
+    Correct(i);
 }
 }
 
-setTimeout(()=>end(),1000)
+if(Wrong()!=5){
+    $(`#answer${Wrong()}`).css({'background-color':'green'})
+ }
 
+setTimeout(()=>end(),1000)  
 })
+
+
+
+
+document.addEventListener("keyup",(e)=>{
+    if(e.code != "Digit1" && e.code != "Digit2" && e.code != "Digit3" && e.code != "Digit4") return null
+    for(var i=0;i<4;i++){
+    if(e.code===`Digit${i+1}`){
+       if(compare($(`#answer${i}`).html(),stat.children.item(i).innerHTML)){
+           Correct(i);
+       }
+}   
+     }   
+console.log(kap!=1)
+if(kap!=1){
+     if(Wrong()!=5){
+         score=0;
+        $(`#answer${Wrong()}`).css({'background-color':'green'})
+     }
+    }
+     setTimeout(()=>end(),1000) 
+
+}
+
+)
  

@@ -17,7 +17,7 @@ body{
 Details{
     background-color :rgb(99,99,99);
 }
-ul{
+ul#stats{
     list-style-type: none;
     position: relative;
     left: -15px;
@@ -35,4 +35,10 @@ ul{
     text-decoration: none;
     display: inline-block;
     font-size: 15px;
+  }
+
+  div.score>ul{
+      position: relative;
+      list-style-type: none;
+      left: -15px;
   }
