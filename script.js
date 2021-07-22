@@ -1,4 +1,7 @@
- const btn = document.getElementById("Btn1")
+import $ from "jquery"
+
+
+const btn = document.getElementById("Btn1")
 const nme =document.getElementById("name")
 const tit =document.getElementById("title")
 const stat =document.getElementById("stats")
@@ -105,30 +108,10 @@ if(compare(e.target.innerHTML,stat.children.item(i).innerHTML)){
     bdllon=5;
 }
 }
-/* 
-if(compare(e.target.innerHTML,stat.children.item(1).innerHTML)){
 
-    $('.answer').css({'background-color':'red'})
-    $('#answer1').css({'background-color':'green'})
-    kap=1;
-}
-
-
-if(compare(e.target.innerHTML,stat.children.item(2).innerHTML)){
-    $('.answer').css({'background-color':'red'})
-    $('#answer2').css({'background-color':'green'})
-    kap=1;
-}
-
-if(compare(e.target.innerHTML,stat.children.item(3).innerHTML)){
-   $('.answer').css({'background-color':'red'})
-   $('#answer3').css({'background-color':'green'})
-    kap=1;
-} 
-*/
 if(kap!=1){
     for(var i=0;i<4;i++){
-        for(j=0;j<4;j++){
+        for(var j=0;j<4;j++){
             console.log(stat.children.item(i).innerHTML===Object.values(arrayX[3])[0].spells[j].name)
     if(stat.children.item(i).innerHTML===Object.values(arrayX[3])[0].spells[j].name){
         $(`#answer${i}`).css({'background-color':'green'})

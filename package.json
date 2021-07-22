@@ -1,0 +1,27 @@
+{
+  "name": "leagueproj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebuxo/legolegends.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebuxo/legolegends/issues"
+  },
+  "homepage": "https://github.com/sebuxo/legolegends#readme",
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
+}

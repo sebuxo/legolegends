@@ -1,0 +1,40 @@
+body{
+    background-color: rgb(99,99,99);
+ text-align: center;
+ margin-top: 300px;
+}
+.button #Btn1{
+    
+    margin: auto;
+}
+
+#champimg{
+    text-align: center;
+    width: 120px;
+    height: 120px;
+}
+
+Details{
+    background-color :rgb(99,99,99);
+}
+ul{
+    list-style-type: none;
+    position: relative;
+    left: -15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.answer {
+    background-color:cyan;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */
